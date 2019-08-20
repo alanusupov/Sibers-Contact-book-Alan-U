@@ -11,7 +11,7 @@ class ShowContact extends Component {
             <ul>
           { this.props.persons.map(person => <li>
               
-            {person.name}and {person.email} and {person.phone} 
+            Name: {person.name} Email: {person.email} Phone: {person.phone} 
            <div>
 
            <button onClick={this.props.deletePerson}>Delete</button>

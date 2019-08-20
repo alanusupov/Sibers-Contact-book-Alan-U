@@ -39,6 +39,7 @@ export default class PersonList extends React.Component {
     
     return (
       <div className="container">
+        <h1>Contact Book</h1>
         <AddContact persons={this.state.persons} addPerson={this.addPerson}  />
         <ShowContact persons={this.state.persons} 
         deletePerson={this.deletePerson} />
