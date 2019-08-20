@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
+import AddContact from './components/AddContact';
+import ShowContact from './components/ShowContact';
+export default class PersonList extends React.Component {
+  state = {
+    persons: [],
+    
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    addPerson = (person) => {
+      let persons = this.state.persons;
+      persons.unshift(person);
+      this.setState({
+        persons
+      })
+      
+ console.log(this.state);
+    };
+    
+    deletePerson = (person) => {
+      const persons = [...this.state.persons];
+      persons.splice(person, 1);
+      this.setState({persons})
+    }
+  componentDidMount() {
+        
+    axios.get(`http://demo.sibers.com/users`)
+      .then(res => {
+        const persons = res.data;
+        this.setState({ persons : this.state.persons.concat(persons)});
+        console.log(this.state.persons);
+      })
+  }
+  
+
+  render() {
+    
+    return (
+      <div className="container">
+        <AddContact persons={this.state.persons} addPerson={this.addPerson}  />
+        <ShowContact persons={this.state.persons} 
+        deletePerson={this.deletePerson} />
+      </div>
+      
+    )
+  }
 }
-
-export default App;
